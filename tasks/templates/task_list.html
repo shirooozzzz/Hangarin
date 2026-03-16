@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Task List</h2>
+
+<a class="btn btn-primary mb-3" href="{% url 'task_create' %}">
+    Create Task
+</a>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Deadline</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+
+            <td>{{ task.title }}</td>
+
+            <td>
+                {% if task.status == "Completed" %}
+                    <span class="badge bg-success">Completed</span>
+                {% else %}
+                    <span class="badge bg-warning">Pending</span>
+                {% endif %}
+            </td>
+
+            <td>{{ task.priority }}</td>
+
+            <td>
+                {% if task.deadline < now and task.status != "Completed" %}
+                    <span class="text-danger fw-bold">
+                        {{ task.deadline }}
+                    </span>
+                {% elif task.status != "Completed" %}
+                    <span class="text-warning">
+                        {{ task.deadline }}
+                    </span>
+                {% else %}
+                    {{ task.deadline }}
+                {% endif %}
+            </td>
+
+            <td>
+                <a class="btn btn-sm btn-info"
+                   href="{% url 'task_update' task.pk %}">
+                    Edit
+                </a>
+
+                <a class="btn btn-sm btn-danger"
+                   href="{% url 'task_delete' task.pk %}">
+                    Delete
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}
