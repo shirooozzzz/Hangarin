@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.db.models import Q
 
 from .models import Task, Category, Priority, SubTask, Note
 
@@ -35,6 +36,19 @@ class TaskListView(ListView):
         context["now"] = timezone.now()
         return context
 
+    def get_queryset(self):
+        queryset = Task.objects.all()
+        search_query = self.request.GET.get("q")
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(status__icontains=search_query)
+            )
+
+        return queryset
+
 
 class TaskCreateView(CreateView):
     model = Task
@@ -62,6 +76,17 @@ class CategoryList(ListView):
     template_name = "category_list.html"
     paginate_by = 10
 
+    def get_queryset(self):
+        queryset = Category.objects.all()
+        search_query = self.request.GET.get("q")
+
+        if search_query and search_query.strip():
+            queryset = queryset.filter(
+                name__icontains=search_query
+            )
+
+        return queryset
+
 
 class CategoryCreate(CreateView):
     model = Category
@@ -84,6 +109,17 @@ class PriorityList(ListView):
     model = Priority
     template_name = "priority_list.html"
     paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Priority.objects.all()
+        search_query = self.request.GET.get("q")
+
+        if search_query and search_query.strip():
+            queryset = queryset.filter(
+                name__icontains=search_query
+            )
+
+        return queryset
 
 
 class PriorityCreate(CreateView):
@@ -111,6 +147,18 @@ class SubTaskList(ListView):
     template_name = "subtask_list.html"
     paginate_by = 10
 
+    def get_queryset(self):
+        queryset = SubTask.objects.all()
+        search_query = self.request.GET.get("q")
+
+        if search_query and search_query.strip():
+            queryset = queryset.filter(
+                Q(title__icontains=search_query) |
+                Q(task__title__icontains=search_query)
+            )
+
+        return queryset
+
 
 class SubTaskCreate(CreateView):
     model = SubTask
@@ -136,6 +184,18 @@ class NoteList(ListView):
     model = Note
     template_name = "note_list.html"
     paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Note.objects.all()
+        search_query = self.request.GET.get("q")
+
+        if search_query and search_query.strip():
+            queryset = queryset.filter(
+                Q(content__icontains=search_query) |
+                Q(task__title__icontains=search_query)
+            )
+
+        return queryset
 
 
 class NoteCreate(CreateView):

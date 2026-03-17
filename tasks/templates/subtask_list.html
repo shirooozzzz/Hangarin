@@ -6,6 +6,20 @@
 
     <h2>Subtasks</h2>
 
+    <form method="get" class="d-flex">
+
+        <input type="text"
+            name="q"
+            class="form-control me-2"
+            placeholder="Search tasks..."
+            value="{{ request.GET.q }}">
+
+        <button class="btn btn-primary">
+            Search
+        </button>
+
+    </form>
+
     <a class="btn btn-primary" href="{% url 'subtask_create' %}">
         Add Subtask
     </a>

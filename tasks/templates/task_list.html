@@ -6,8 +6,22 @@
 
     <h2>Task List</h2>
 
+    <form method="get" class="d-flex">
+
+        <input type="text"
+            name="q"
+            class="form-control me-2"
+            placeholder="Search tasks..."
+            value="{{ request.GET.q }}">
+
+        <button class="btn btn-primary">
+            Search
+        </button>
+
+    </form>
+
     <a class="btn btn-primary mb-3" href="{% url 'task_create' %}">
-        Create Task
+        Add Task
     </a>
 
 </div>
