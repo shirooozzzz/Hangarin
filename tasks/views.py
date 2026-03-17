@@ -3,7 +3,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.utils import timezone
 
-from .models import Task
+from .models import Task, Category, Priority, SubTask, Note
 
 
 def dashboard(request):
@@ -54,3 +54,105 @@ class TaskDeleteView(DeleteView):
     model = Task
     template_name = "task_confirm_delete.html"
     success_url = reverse_lazy("task_list")
+
+
+
+class CategoryList(ListView):
+    model = Category
+    template_name = "category_list.html"
+    paginate_by = 10
+
+
+class CategoryCreate(CreateView):
+    model = Category
+    fields = "__all__"
+    success_url = reverse_lazy("category_list")
+
+
+class CategoryUpdate(UpdateView):
+    model = Category
+    fields = "__all__"
+    success_url = reverse_lazy("category_list")
+
+
+class CategoryDelete(DeleteView):
+    model = Category
+    success_url = reverse_lazy("category_list")
+
+
+class PriorityList(ListView):
+    model = Priority
+    template_name = "priority_list.html"
+    paginate_by = 10
+
+
+class PriorityCreate(CreateView):
+    model = Priority
+    fields = "__all__"
+    template_name = "priority_form.html"
+    success_url = reverse_lazy("priority_list")
+
+
+class PriorityUpdate(UpdateView):
+    model = Priority
+    fields = "__all__"
+    template_name = "priority_form.html"
+    success_url = reverse_lazy("priority_list")
+
+
+class PriorityDelete(DeleteView):
+    model = Priority
+    template_name = "priority_confirm_delete.html"
+    success_url = reverse_lazy("priority_list")
+
+
+class SubTaskList(ListView):
+    model = SubTask
+    template_name = "subtask_list.html"
+    paginate_by = 10
+
+
+class SubTaskCreate(CreateView):
+    model = SubTask
+    fields = "__all__"
+    template_name = "subtask_form.html"
+    success_url = reverse_lazy("subtask_list")
+
+
+class SubTaskUpdate(UpdateView):
+    model = SubTask
+    fields = "__all__"
+    template_name = "subtask_form.html"
+    success_url = reverse_lazy("subtask_list")
+
+
+class SubTaskDelete(DeleteView):
+    model = SubTask
+    template_name = "subtask_confirm_delete.html"
+    success_url = reverse_lazy("subtask_list")
+
+
+class NoteList(ListView):
+    model = Note
+    template_name = "note_list.html"
+    paginate_by = 10
+
+
+class NoteCreate(CreateView):
+    model = Note
+    fields = "__all__"
+    template_name = "note_form.html"
+    success_url = reverse_lazy("note_list")
+
+
+class NoteUpdate(UpdateView):
+    model = Note
+    fields = "__all__"
+    template_name = "note_form.html"
+    success_url = reverse_lazy("note_list")
+
+
+class NoteDelete(DeleteView):
+    model = Note
+    template_name = "note_confirm_delete.html"
+    success_url = reverse_lazy("note_list")

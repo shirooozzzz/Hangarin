@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+
+    <div class="card shadow p-4 text-center" style="width:400px;">
+
+        <h4 class="mb-3">
+            Delete Subtask
+        </h4>
+
+        <p>
+            Are you sure you want to delete
+            <strong>{{ object.title }}</strong>?
+        </p>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <button class="btn btn-danger">
+                Yes, Delete
+            </button>
+
+            <a class="btn btn-secondary"
+               href="{% url 'subtask_list' %}">
+               Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

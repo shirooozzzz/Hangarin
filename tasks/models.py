@@ -40,7 +40,7 @@ class Task(BaseModel):
 
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=255)
-    deadline = models.DateTimeField()
+    deadline = models.DateField(null=True, blank=True)
 
     status = models.CharField(
         max_length=50,
@@ -48,8 +48,8 @@ class Task(BaseModel):
         default="Pending"
     )
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    priority = models.ForeignKey(Priority, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    priority = models.ForeignKey(Priority, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.title

@@ -4,10 +4,10 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h2>Task List</h2>
+    <h2>Priorities</h2>
 
-    <a class="btn btn-primary mb-3" href="{% url 'task_create' %}">
-        Create Task
+    <a class="btn btn-primary" href="{% url 'priority_create' %}">
+        Add Priority
     </a>
 
 </div>
@@ -16,58 +16,45 @@
 
     <thead class="table-dark">
         <tr>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Priority</th>
-            <th>Deadline</th>
+            <th>Name</th>
             <th>Actions</th>
         </tr>
     </thead>
 
     <tbody>
-        {% for task in tasks %}
+
+        {% for priority in object_list %}
+
         <tr>
 
-            <td>{{ task.title }}</td>
+            <td>{{ priority.name }}</td>
 
             <td>
-                {% if task.status == "Completed" %}
-                    <span class="badge bg-success">Completed</span>
-                {% else %}
-                    <span class="badge bg-warning">Pending</span>
-                {% endif %}
-            </td>
 
-            <td>{{ task.priority }}</td>
-
-            <td>
-                {% if task.deadline < now and task.status != "Completed" %}
-                    <span class="text-danger fw-bold">
-                        {{ task.deadline }}
-                    </span>
-                {% elif task.status != "Completed" %}
-                    <span class="text-warning">
-                        {{ task.deadline }}
-                    </span>
-                {% else %}
-                    {{ task.deadline }}
-                {% endif %}
-            </td>
-
-            <td>
                 <a class="btn btn-sm btn-info"
-                   href="{% url 'task_update' task.pk %}">
-                    Edit
+                   href="{% url 'priority_update' priority.pk %}">
+                   Edit
                 </a>
 
                 <a class="btn btn-sm btn-danger"
-                   href="{% url 'task_delete' task.pk %}">
-                    Delete
+                   href="{% url 'priority_delete' priority.pk %}">
+                   Delete
                 </a>
+
             </td>
 
         </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="2" class="text-center">
+                No priorities yet
+            </td>
+        </tr>
+
         {% endfor %}
+
     </tbody>
 
 </table>
