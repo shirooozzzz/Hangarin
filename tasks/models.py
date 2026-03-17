@@ -71,7 +71,7 @@ class SubTask(BaseModel):
         ("Completed", "Completed"),
     ]
 
-    parent_task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
 
     status = models.CharField(
