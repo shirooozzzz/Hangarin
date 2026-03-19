@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-p@s&l^_47o@n$tb1329x!(zgu(^2j(a=vf2_-c+u8&^*n8xe$m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'kaedeee.pythonanywhere.com',
+    'psusphere.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'tasks',
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -67,6 +73,16 @@ TEMPLATES = [
         },
     },
 ]
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+
+# Additional locations of static files (for development)
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 WSGI_APPLICATION = 'hangarin_project.wsgi.application'
 
@@ -115,5 +131,3 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-STATIC_URL = 'static/'
