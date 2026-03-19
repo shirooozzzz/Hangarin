@@ -40,7 +40,7 @@ class Task(BaseModel):
 
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=255)
-    deadline = models.DateField(null=True, blank=True)
+    deadline = models.DateTimeField(null=True, blank=True)
 
     status = models.CharField(
         max_length=50,

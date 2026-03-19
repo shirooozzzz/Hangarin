@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Tasks | Hangarin{% endblock %}
+
 {% block content %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -8,11 +10,7 @@
 
     <form method="get" class="d-flex">
 
-        <input type="text"
-            name="q"
-            class="form-control me-2"
-            placeholder="Search tasks..."
-            value="{{ request.GET.q }}">
+        <input type="text" name="q" class="form-control me-2" placeholder="Search tasks..." value="{{ request.GET.q }}">
 
         <button class="btn btn-primary">
             Search
@@ -46,36 +44,42 @@
 
             <td>
                 {% if task.status == "Completed" %}
-                    <span class="badge bg-success">Completed</span>
+                <span class="badge bg-success">Completed</span>
                 {% else %}
-                    <span class="badge bg-warning">Pending</span>
+                <span class="badge bg-warning">Pending</span>
                 {% endif %}
             </td>
 
             <td>{{ task.priority }}</td>
 
             <td>
-                {% if task.deadline < now and task.status != "Completed" %}
-                    <span class="text-danger fw-bold">
-                        {{ task.deadline }}
-                    </span>
-                {% elif task.status != "Completed" %}
-                    <span class="text-warning">
-                        {{ task.deadline }}
-                    </span>
-                {% else %}
-                    {{ task.deadline }}
-                {% endif %}
+                {% if task.deadline %}
+
+                    {% if task.deadline < now and task.status != "Completed" %} 
+                        <span class="text-danger fw-bold">
+                        {{ task.deadline|date:"M d, Y H:i" }}
+                        </span>
+
+                        {% elif task.status != "Completed" %}
+                            <span class="text-warning">
+                                {{ task.deadline|date:"M d, Y H:i" }}
+                            </span>
+
+                        {% else %}
+                            {{ task.deadline|date:"M d, Y H:i" }}
+                        {% endif %}
+
+                    {% else %}
+                        <span class="text-muted">No deadline</span>
+                    {% endif %}
             </td>
 
             <td>
-                <a class="btn btn-sm btn-info"
-                   href="{% url 'task_update' task.pk %}">
+                <a class="btn btn-sm btn-info" href="{% url 'task_update' task.pk %}">
                     Edit
                 </a>
 
-                <a class="btn btn-sm btn-danger"
-                   href="{% url 'task_delete' task.pk %}">
+                <a class="btn btn-sm btn-danger" href="{% url 'task_delete' task.pk %}">
                     Delete
                 </a>
             </td>
@@ -89,59 +93,58 @@
     <nav aria-label="Topics pagination" class="mb-4">
         <ul class="pagination">
             {% if page_obj.number > 1 %}
-                <li class="page-item">
-                    <a class="page-link" href="?page=1">First</a>
-                </li>
+            <li class="page-item">
+                <a class="page-link" href="?page=1">First</a>
+            </li>
             {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link">First</span>
-                </li>
+            <li class="page-item disabled">
+                <span class="page-link">First</span>
+            </li>
             {% endif %}
 
             {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a>
-                </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a>
+            </li>
             {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link">Prev</span>
-                </li>
+            <li class="page-item disabled">
+                <span class="page-link">Prev</span>
+            </li>
             {% endif %}
 
             {% for page_num in paginator.page_range %}
-                {% if page_obj.number == page_num %}
-                    <li class="page-item active">
-                        <span class="page-link">
-                            {{ page_num }}
-                            <span class="sr-only">(current)</span>
-                        </span>
-                    </li>
-                {% elif page_num > page_obj.number|add:'-3' and page_num < page_obj.number|add:'3' %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
-                    </li>
+            {% if page_obj.number == page_num %}
+            <li class="page-item active">
+                <span class="page-link">
+                    {{ page_num }}
+                    <span class="sr-only">(current)</span>
+                </span>
+            </li>
+            {% elif page_num > page_obj.number|add:'-3' and page_num < page_obj.number|add:'3' %} <li class="page-item">
+                <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                </li>
                 {% endif %}
-            {% endfor %}
+                {% endfor %}
 
-            {% if page_obj.has_next %}
+                {% if page_obj.has_next %}
                 <li class="page-item">
                     <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
                 </li>
-            {% else %}
+                {% else %}
                 <li class="page-item disabled">
                     <span class="page-link">Next</span>
                 </li>
-            {% endif %}
+                {% endif %}
 
-            {% if page_obj.number != paginator.num_pages %}
+                {% if page_obj.number != paginator.num_pages %}
                 <li class="page-item">
                     <a class="page-link" href="?page={{ paginator.num_pages }}">Last</a>
                 </li>
-            {% else %}
+                {% else %}
                 <li class="page-item disabled">
                     <span class="page-link">Last</span>
                 </li>
-            {% endif %}
+                {% endif %}
         </ul>
     </nav>
     <div class="fw-normal small mt-4 mt-lg-0">

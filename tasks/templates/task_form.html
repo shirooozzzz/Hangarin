@@ -19,19 +19,44 @@
                 <form method="post">
                     {% csrf_token %}
 
-                    {{ form.as_p }}
+                    <div class="mb-3">
+                        <label>Title</label>
+                        {{ form.title }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Description</label>
+                        {{ form.description }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Deadline</label>
+                        {{ form.deadline }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Status</label>
+                        {{ form.status }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Priority</label>
+                        {{ form.priority }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Category</label>
+                        {{ form.category }}
+                    </div>
 
                     <div class="text-center mt-3">
-
                         <button class="btn btn-success">
                             Save Task
                         </button>
 
-                        <a class="btn btn-secondary"
-                           href="{% url 'task_list' %}">
+                        <a class="btn btn-secondary" href="{% url 'task_list' %}">
                             Cancel
                         </a>
-
                     </div>
 
                 </form>

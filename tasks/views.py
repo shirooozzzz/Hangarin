@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.db.models import Q
 
 from .models import Task, Category, Priority, SubTask, Note
+from .forms import TaskForm
 
 
 def dashboard(request):
@@ -52,14 +53,14 @@ class TaskListView(ListView):
 
 class TaskCreateView(CreateView):
     model = Task
-    fields = ["title", "description", "deadline", "status", "priority", "category"]
+    form_class = TaskForm
     template_name = "task_form.html"
     success_url = reverse_lazy("task_list")
 
 
 class TaskUpdateView(UpdateView):
     model = Task
-    fields = ["title", "description", "deadline", "status", "priority", "category"]
+    form_class = TaskForm
     template_name = "task_form.html"
     success_url = reverse_lazy("task_list")
 
