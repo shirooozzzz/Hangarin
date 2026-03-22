@@ -15,7 +15,7 @@ class TaskAdmin(admin.ModelAdmin):
 class SubTaskAdmin(admin.ModelAdmin):
 
     def parent_task_name(self, obj):
-        return obj.parent_task.title
+        return obj.task.title
 
     list_display = ("title", "status", "parent_task_name")
     list_filter = ("status",)
