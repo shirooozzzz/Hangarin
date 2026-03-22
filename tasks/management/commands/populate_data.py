@@ -36,7 +36,7 @@ class Command(BaseCommand):
 
             for _ in range(random.randint(1,4)):
                 SubTask.objects.create(
-                    parent_task=task,
+                    task=task,
                     title=fake.sentence(nb_words=4),
                     status=fake.random_element(elements=status_choices)
                 )
