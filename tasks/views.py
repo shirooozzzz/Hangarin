@@ -13,14 +13,17 @@ def dashboard(request):
     total_tasks = Task.objects.count()
     pending_tasks = Task.objects.filter(status="Pending").count()
     completed_tasks = Task.objects.filter(status="Completed").count()
+    overdue_tasks = Task.objects.filter(deadline__lt=timezone.now(), status__in=["Pending", "In Progress"])
+
 
     recent_tasks = Task.objects.order_by("-created_at")[:5]
 
     context = {
-        "total_tasks": total_tasks,
-        "pending_tasks": pending_tasks,
-        "completed_tasks": completed_tasks,
-        "recent_tasks": recent_tasks,
+        "total_tasks": Task.objects.count(),
+        "pending_tasks": Task.objects.filter(status="Pending").count(),
+        "completed_tasks": Task.objects.filter(status="Completed").count(),
+        "recent_tasks": Task.objects.order_by('-id')[:10],
+        "now": timezone.now(),
     }
 
     return render(request, "dashboard.html", context)

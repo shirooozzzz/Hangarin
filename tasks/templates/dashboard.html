@@ -5,108 +5,69 @@
 <div class="row g-4">
 
     <div class="col-md-4">
-
         <div class="card shadow border-0 bg-primary text-white">
-
             <div class="card-body">
-
                 <h6>Total Tasks</h6>
-
                 <h2>{{ total_tasks }}</h2>
-
             </div>
-
         </div>
-
     </div>
 
-
     <div class="col-md-4">
-
         <div class="card shadow border-0 bg-warning text-white">
-
             <div class="card-body">
-
                 <h6>Pending Tasks</h6>
-
                 <h2>{{ pending_tasks }}</h2>
-
             </div>
-
         </div>
-
     </div>
 
-
     <div class="col-md-4">
-
         <div class="card shadow border-0 bg-success text-white">
-
             <div class="card-body">
-
                 <h6>Completed Tasks</h6>
-
                 <h2>{{ completed_tasks }}</h2>
-
             </div>
-
         </div>
-
     </div>
 
 </div>
 
-
-<h4 class="mt-5 mb-3">
-    Recent Tasks
-</h4>
+<h4 class="mt-5 mb-3">Recent Tasks</h4>
 
 <table class="table table-hover">
-
     <thead class="table-dark">
-
         <tr>
             <th>Title</th>
             <th>Status</th>
             <th>Deadline</th>
         </tr>
-
     </thead>
-
     <tbody>
-
         {% for task in recent_tasks %}
-
-        <tr>
-
+        <tr
+            {% if task.deadline and task.deadline < now and task.status != "Completed" %}
+                class="table-danger"
+            {% endif %}
+        >
+            <td>{{ task.title }}</td>
             <td>
-                {{ task.title }}
-            </td>
-
-            <td>
-
                 {% if task.status == "Completed" %}
-                    <span class="badge bg-success">
-                        Completed
-                    </span>
+                    <span class="badge bg-success">Completed</span>
+                {% elif task.deadline and task.deadline < now %}
+                    <span class="badge bg-danger">Overdue</span>
                 {% else %}
-                    <span class="badge bg-warning">
-                        Pending
-                    </span>
+                    <span class="badge bg-warning">Pending</span>
                 {% endif %}
-
             </td>
-
-            <td>
-                {{ task.deadline }}
-            </td>
-
+            <td>{{ task.deadline }}</td>
         </tr>
-
+        {% empty %}
+        <tr>
+            <td colspan="3" class="text-center">No tasks available!</td>
+        </tr>
         {% endfor %}
-
     </tbody>
-
 </table>
 
 {% endblock %}
