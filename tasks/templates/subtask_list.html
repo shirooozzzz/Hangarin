@@ -50,8 +50,10 @@
             <td>{{ subtask.title }}</td>
 
             <td>
-                {% if subtask.is_completed %}
+                {% if subtask.status == "Completed" %}
                     <span class="badge bg-success">Completed</span>
+                {% elif subtask.status == "In Progress" %}
+                    <span class="badge bg-info text-white">In Progress</span>
                 {% else %}
                     <span class="badge bg-warning">Pending</span>
                 {% endif %}
