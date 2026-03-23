@@ -1,4 +1,6 @@
-from django.urls import path
+from django.contrib import admin    
+from django.urls import path, include
+
 from .views import (
     dashboard, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView, 
     CategoryList, CategoryCreate, CategoryUpdate, CategoryDelete,
@@ -31,4 +33,5 @@ urlpatterns = [
     path("notes/create/", NoteCreate.as_view(), name="note_create"),
     path("notes/<int:pk>/update/", NoteUpdate.as_view(), name="note_update"),
     path("notes/<int:pk>/delete/", NoteDelete.as_view(), name="note_delete"),
+
 ]
