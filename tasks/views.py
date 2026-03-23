@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.db.models import Q
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task, Category, Priority, SubTask, Note
 from .forms import TaskForm
 
@@ -29,7 +30,7 @@ def dashboard(request):
     return render(request, "dashboard.html", context)
 
 
-class TaskListView(ListView):
+class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "task_list.html"
     context_object_name = "tasks"
@@ -54,28 +55,28 @@ class TaskListView(ListView):
         return queryset
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = "task_form.html"
     success_url = reverse_lazy("task_list")
 
 
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "task_form.html"
     success_url = reverse_lazy("task_list")
 
 
-class TaskDeleteView(DeleteView):
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = "task_confirm_delete.html"
     success_url = reverse_lazy("task_list")
 
 
 
-class CategoryList(ListView):
+class CategoryList(LoginRequiredMixin, ListView):
     model = Category
     template_name = "category_list.html"
     paginate_by = 10
@@ -92,24 +93,24 @@ class CategoryList(ListView):
         return queryset
 
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, CreateView):
     model = Category
     fields = "__all__"
     success_url = reverse_lazy("category_list")
 
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     fields = "__all__"
     success_url = reverse_lazy("category_list")
 
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = reverse_lazy("category_list")
 
 
-class PriorityList(ListView):
+class PriorityList(LoginRequiredMixin, ListView):
     model = Priority
     template_name = "priority_list.html"
     paginate_by = 10
@@ -126,27 +127,27 @@ class PriorityList(ListView):
         return queryset
 
 
-class PriorityCreate(CreateView):
+class PriorityCreate(LoginRequiredMixin, CreateView):
     model = Priority
     fields = "__all__"
     template_name = "priority_form.html"
     success_url = reverse_lazy("priority_list")
 
 
-class PriorityUpdate(UpdateView):
+class PriorityUpdate(LoginRequiredMixin, UpdateView):
     model = Priority
     fields = "__all__"
     template_name = "priority_form.html"
     success_url = reverse_lazy("priority_list")
 
 
-class PriorityDelete(DeleteView):
+class PriorityDelete(LoginRequiredMixin, DeleteView):
     model = Priority
     template_name = "priority_confirm_delete.html"
     success_url = reverse_lazy("priority_list")
 
 
-class SubTaskList(ListView):
+class SubTaskList(LoginRequiredMixin, ListView):
     model = SubTask
     template_name = "subtask_list.html"
     paginate_by = 10
@@ -164,27 +165,27 @@ class SubTaskList(ListView):
         return queryset
 
 
-class SubTaskCreate(CreateView):
+class SubTaskCreate(LoginRequiredMixin, CreateView):
     model = SubTask
     fields = "__all__"
     template_name = "subtask_form.html"
     success_url = reverse_lazy("subtask_list")
 
 
-class SubTaskUpdate(UpdateView):
+class SubTaskUpdate(LoginRequiredMixin, UpdateView):
     model = SubTask
     fields = "__all__"
     template_name = "subtask_form.html"
     success_url = reverse_lazy("subtask_list")
 
 
-class SubTaskDelete(DeleteView):
+class SubTaskDelete(LoginRequiredMixin, DeleteView):
     model = SubTask
     template_name = "subtask_confirm_delete.html"
     success_url = reverse_lazy("subtask_list")
 
 
-class NoteList(ListView):
+class NoteList(LoginRequiredMixin, ListView):
     model = Note
     template_name = "note_list.html"
     paginate_by = 10
@@ -202,21 +203,21 @@ class NoteList(ListView):
         return queryset
 
 
-class NoteCreate(CreateView):
+class NoteCreate(LoginRequiredMixin, CreateView):
     model = Note
     fields = "__all__"
     template_name = "note_form.html"
     success_url = reverse_lazy("note_list")
 
 
-class NoteUpdate(UpdateView):
+class NoteUpdate(LoginRequiredMixin, UpdateView):
     model = Note
     fields = "__all__"
     template_name = "note_form.html"
     success_url = reverse_lazy("note_list")
 
 
-class NoteDelete(DeleteView):
+class NoteDelete(LoginRequiredMixin, DeleteView):
     model = Note
     template_name = "note_confirm_delete.html"
     success_url = reverse_lazy("note_list")

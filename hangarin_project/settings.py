@@ -96,6 +96,8 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+LOGIN_URL = '/accounts/login/'
+
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
