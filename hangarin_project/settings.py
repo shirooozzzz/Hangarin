@@ -30,7 +30,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'kaedeee.pythonanywhere.com',
-    'psusphere.pythonanywhere.com',
 ]
 
 
@@ -103,6 +102,10 @@ STATIC_URL = '/static/'
 # Additional locations of static files (for development)
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://yourusername.pythonanywhere.com"
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
