@@ -105,7 +105,7 @@ STATICFILES_DIRS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://yourusername.pythonanywhere.com"
+    "https://kaedeee.pythonanywhere.com"
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
