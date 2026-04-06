@@ -1,4 +1,6 @@
 self.addEventListener('install', function (e) {
+    console.log('SW installing...');
+
     e.waitUntil(
         caches.open('projectsite-cache-v1').then(function (cache) {
             return cache.addAll([
@@ -8,13 +10,11 @@ self.addEventListener('install', function (e) {
         })
     );
 });
+
 self.addEventListener('fetch', function (e) {
     e.respondWith(
         caches.match(e.request).then(function (response) {
             return response || fetch(e.request);
         })
     );
-});
-self.addEventListener('install', function () {
-    console.log('Service Worker Installed');
 });
