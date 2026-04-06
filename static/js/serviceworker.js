@@ -3,8 +3,7 @@ self.addEventListener('install', function (e) {
         caches.open('projectsite-cache-v1').then(function (cache) {
             return cache.addAll([
                 '/',
-                '/static/css/bootstrap.min.css',
-                '/static/js/main.js',
+                '/static/css/style.css'
             ]);
         })
     );
@@ -15,4 +14,7 @@ self.addEventListener('fetch', function (e) {
             return response || fetch(e.request);
         })
     );
+});
+self.addEventListener('install', function () {
+    console.log('Service Worker Installed');
 });
