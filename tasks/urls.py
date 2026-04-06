@@ -1,5 +1,7 @@
 from django.contrib import admin    
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from .views import (
     dashboard, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView, 
@@ -34,4 +36,9 @@ urlpatterns = [
     path("notes/<int:pk>/update/", NoteUpdate.as_view(), name="note_update"),
     path("notes/<int:pk>/delete/", NoteDelete.as_view(), name="note_delete"),
 
+    path('', include('pwa.urls')),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
