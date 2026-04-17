@@ -175,12 +175,12 @@ PWA_APP_STATUS_BAR_COLOR = 'default'
 
 PWA_APP_ICONS = [
     {
-        'src': '/static/img/hangarin.png',
+        'src': '/static/img/hangarin_192.png',
         'sizes': '192x192',
         'type': 'image/png'
     },
     {
-        'src': '/static/img/hangarin.png',
+        'src': '/static/img/hangarin_512.png',
         'sizes': '512x512',
         'type': 'image/png'
     }
@@ -188,12 +188,12 @@ PWA_APP_ICONS = [
 
 PWA_APP_ICONS_APPLE = [
     {
-        'src': '/static/img/hangarin.png',
+        'src': '/static/img/hangarin_192.png',
         'sizes': '192x192',
         'type': 'image/png'
     },
     {
-        'src': '/static/img/hangarin.png',
+        'src': '/static/img/hangarin_512.png',
         'sizes': '512x512',
         'type': 'image/png'
     }
